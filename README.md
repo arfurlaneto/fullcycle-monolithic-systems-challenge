@@ -1,1 +1,0 @@
-# fullcycle-monolithic-systems-challenge
