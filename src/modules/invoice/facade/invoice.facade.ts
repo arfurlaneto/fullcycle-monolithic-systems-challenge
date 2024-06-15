@@ -27,6 +27,17 @@ export default class InvoiceFacade implements InvoiceFacadeInterface {
   async find(
     input: FindInvoiceFacadeInputDto
   ): Promise<FindInvoiceFacadeOutputDto> {
-    return this._findUsecase.execute(input);
+    let output = await this._findUsecase.execute(input);
+    return {
+      ...output,
+      address: {
+        street: output.address.street,
+        number: output.address.number,
+        complement: output.address.complement,
+        city: output.address.city,
+        state: output.address.state,
+        zipCode: output.address.zipCode,
+      }
+    }
   }
 }

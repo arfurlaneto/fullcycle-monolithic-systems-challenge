@@ -1,0 +1,59 @@
+@productId = {{createProduct.response.body.$.id}}
+@clientId = {{createClient.response.body.$.id}}
+@invoiceId = {{createOrder.response.body.$.invoiceId}}
+
+###
+
+# Create Product
+# @name createProduct
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "Product {{$timestamp}}",
+  "description": "Product {{$timestamp}}",
+  "purchasePrice": 100.00,
+  "salesPrice": 150.00,
+  "stock": 500
+}
+
+###
+
+# Create Client
+# @name createClient
+POST http://localhost:3000/clients
+Content-Type: application/json
+
+{
+  "name": "Client {{$timestamp}}",
+  "email": "{{$timestamp}}@xpto.com",
+  "document": "1234-5678",
+  "address": {
+      "street": "Rua 123",
+      "number": "99",
+      "complement": "Casa Verde",
+      "city": "Criciúma",
+      "state": "SC",
+      "zipCode": "88888-888"
+  }
+}
+
+###
+
+# Create Order
+# @name createOrder
+POST http://localhost:3000/checkout
+Content-Type: application/json
+
+{
+  "clientId": "{{clientId}}",
+  "products": [
+    { "productId": "{{productId}}"}
+  ]
+}
+
+###
+
+# Get Invoice
+# @name getInvoice
+GET http://localhost:3000/invoice/{{invoiceId}}
